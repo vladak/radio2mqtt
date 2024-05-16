@@ -40,7 +40,6 @@ except ImportError:
 
 BROKER_PORT = "broker_port"
 LOG_TOPIC = "log_topic"
-MQTT_TOPIC = "mqtt_topic"
 BROKER = "broker"
 PASSWORD = "password"
 SSID = "ssid"
@@ -135,7 +134,6 @@ def check_tunables():
     check_string(SSID)
     check_string(PASSWORD)
     check_string(BROKER)
-    check_string(MQTT_TOPIC)
     check_string(LOG_TOPIC, mandatory=False)
 
     check_int(BROKER_PORT)
