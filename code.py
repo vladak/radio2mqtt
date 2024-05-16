@@ -230,8 +230,8 @@ def main():
             logger.warning(f"failed to convert to JSON: {pub_data_dict}")
             continue
 
-        logger.info(f"Publishing to {mqtt_prefix}: {pub_data}")
-        mqtt_client.publish(mqtt_prefix, pub_data)
+        logger.info(f"Publishing to {mqtt_topic}: {pub_data}")
+        mqtt_client.publish(mqtt_topic, pub_data)
 
 
 def get_mqtt_client():
