@@ -209,6 +209,9 @@ def main():
             continue
 
         mqtt_topic = data[1].decode("ascii")
+        nul_idx = mqtt_topic.find("\x00")
+        if nul_idx > 0:
+            mqtt_topic = mqtt_topic[:nul_idx]
         logger.debug(f"MQTT topic: {mqtt_topic}")
         if mqtt_topic not in secrets.get(ALLOWED_TOPICS):
             logger.warning(f"not allowed topic: '{mqtt_topic}'")
