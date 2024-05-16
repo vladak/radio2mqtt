@@ -192,10 +192,8 @@ def main():
         if packet is None:
             continue
 
-        # TODO: print bytes that are ASCII printable, others in hex
         logger.debug(f"Received ({len(packet)} bytes): {packet}")
 
-        # TODO: add unpack format as parameter of each MQTT topic
         mqtt_prefix = "MQTT:"
         max_mqtt_topic_len = 36
         fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIf"
@@ -216,7 +214,6 @@ def main():
             logger.warning(f"not allowed topic: {mqtt_topic}")
             continue
 
-        # TODO: the mapping should also be configurable
         data = data[2:]
         pub_data_dict = {
             "humidity": data[0],
