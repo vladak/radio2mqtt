@@ -173,6 +173,8 @@ def main():
 
     mqtt_client = get_mqtt_client()
 
+    logger.debug(f"allowed topics: {secrets.get(ALLOWED_TOPICS)}")
+
     logger.info(f"Temperature: {rfm69.temperature}C")
     logger.info(f"Frequency: {rfm69.frequency_mhz}mhz")
     logger.info(f"Bit rate: {rfm69.bitrate / 1000}kbit/s")
@@ -209,7 +211,7 @@ def main():
         mqtt_topic = data[1].decode("ascii")
         logger.debug(f"MQTT topic: {mqtt_topic}")
         if mqtt_topic not in secrets.get(ALLOWED_TOPICS):
-            logger.warning(f"not allowed topic: {mqtt_topic}")
+            logger.warning(f"not allowed topic: '{mqtt_topic}'")
             continue
 
         data = data[2:]
