@@ -1,3 +1,4 @@
+[![Python checks](https://github.com/vladak/radio2mqtt/actions/workflows/python-checks.yml/badge.svg)](https://github.com/vladak/radio2mqtt/actions/workflows/python-checks.yml)
 
 # Radio (RFM69) to MQTT gateway
 
