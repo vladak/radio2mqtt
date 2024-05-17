@@ -81,6 +81,7 @@ Purpose | Name                                                                  
 
 ## Lessons learned
 
+- Using web workflow makes it easy for unattended upgrades or code changes
 - The 433 MHz signal using 16.5 cm wire antenna can easily reach across the apartment, i.e. through brick/concrete walls and windows.
 
 ## Guide/documentation links
