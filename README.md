@@ -1,5 +1,5 @@
 
-# Radio to MQTT gateway
+# Radio (RFM69) to MQTT gateway
 
 Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using WiFi.
 The code assumes Feather ESP32 V2 and certain wiring of the Radio FeatherWing.
