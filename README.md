@@ -1,6 +1,11 @@
 
 # Radio to MQTT gateway
 
+Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages.
+The code assumes Feather ESP32 V2 and certain wiring of the Radio FeatherWing.
+
+This is the server piece for [shield](https://github.com/vladak/shield/).
+
 ## Hardware
 
 Here is a bill of materials:
