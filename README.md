@@ -80,3 +80,4 @@ Adafruit has largely such a good documentation that the links are worth putting 
 - [web workflow RESTful API](https://docs.circuitpython.org/en/latest/docs/workflows.html#file-rest-api)
 - [CircuitPython RGB Status Light color coding](https://learn.adafruit.com/welcome-to-circuitpython/troubleshooting#circuitpython-rgb-status-light-2978455)
 - [CircuitPython for RFM69](https://learn.adafruit.com/radio-featherwing/circuitpython-for-rfm69)
+- [on RFM69 wiring to the microcontroller pins](https://forums.adafruit.com/viewtopic.php?p=886292&hilit=433#p886292)
