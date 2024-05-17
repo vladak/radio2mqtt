@@ -38,3 +38,45 @@ Then the following can be used:
   ```
   circup --host 172.40.0.11 --password XXX install -r requirements.txt
   ```
+
+## Configuration
+
+There needs to be a `secrets.py` file that contains Wi-Fi credentials and information about the MQTT broker.
+It can look like this:
+```python
+# This file is where you keep secret settings, passwords, and tokens!
+# If you put them in the code you risk committing that info or sharing it
+
+secrets = {
+    "ssid": "foo",
+    "password": "bar",
+    "broker": "172.40.0.3",
+    "broker_port": 1883,
+    "allowed_topics": ["devices/terasa/shield"],
+    "log_topic": "logs/terasa/shield",
+    "log_level": "INFO",
+}
+```
+
+To transfer the file to the microcontroller, the same method as in the Install section should be used.
+
+### Tunables
+
+Purpose | Name                                                                                                                                              | Type | Kind
+---|---------------------------------------------------------------------------------------------------------------------------------------------------|---|---
+`ssid` | WiFi SSID                                                                                                                                         | `str` | Mandatory
+`password` | WiFi password                                                                                                                                     | `str` | Mandatory
+`broker` | MQTT broker address                                                                                                                               | `str` | Mandatory
+`broker_port` | MQTT broker port                                                                                                                                  | `int` | Mandatory
+`allowed_topics` | MQTT topics to publish messages to                                                                                                                 | `list` of `str` | Mandatory
+`log_topic` | MQTT topic to publish log messages to                                                                                                             | `str` | Optional
+`log_level` | log level, default `INFO`                                                                                                                         | `str` | Mandatory
+`tx_power` | TX power to use if RFM69                                                                                                                          | `int` | Optional
+`encryption_key` | 16 bytes of encryption key if RFM69                                                                                                               | `bytes` | Optional
+
+## Guide/documentation links
+
+Adafruit has largely such a good documentation that the links are worth putting here for quick reference:
+- [web workflow RESTful API](https://docs.circuitpython.org/en/latest/docs/workflows.html#file-rest-api)
+- [CircuitPython RGB Status Light color coding](https://learn.adafruit.com/welcome-to-circuitpython/troubleshooting#circuitpython-rgb-status-light-2978455)
+- [CircuitPython for RFM69](https://learn.adafruit.com/radio-featherwing/circuitpython-for-rfm69)
