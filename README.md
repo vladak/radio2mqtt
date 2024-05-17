@@ -1,7 +1,7 @@
 
 # Radio to MQTT gateway
 
-Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages.
+Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using WiFi.
 The code assumes Feather ESP32 V2 and certain wiring of the Radio FeatherWing.
 
 This is the server piece for [shield](https://github.com/vladak/shield/).
@@ -78,6 +78,10 @@ Purpose | Name                                                                  
 `log_level` | log level, default `INFO`                                                                                                                         | `str` | Mandatory
 `tx_power` | TX power to use if RFM69                                                                                                                          | `int` | Optional
 `encryption_key` | 16 bytes of encryption key if RFM69                                                                                                               | `bytes` | Optional
+
+## Lessons learned
+
+- The 433 MHz signal using 16.5 cm wire antenna can easily reach across the apartment, i.e. through brick/concrete walls and windows.
 
 ## Guide/documentation links
 
