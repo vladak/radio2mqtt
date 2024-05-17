@@ -18,6 +18,8 @@ radio | [Radio FeatherWing 433 MHz](https://www.adafruit.com/product/3230)
 
 Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
+https://www.thingiverse.com/thing:2664919/files is used for the enclosure.
+
 ## Software/firmware install
 
 Firstly, the microcontroller needs to be converted to run CircuitPython 9.x (for the `circup` to work with web workflow). To do that, for ESP32 V2, I chose the [command line `esptool`](https://learn.adafruit.com/circuitpython-with-esp32-quick-start/command-line-esptool) on a Linux computer (since macOS appeared to have flaky serial connection for some reason), however these days it can be done using [Web Flasher](https://adafruit.github.io/Adafruit_WebSerial_ESPTool/) in Chrome. For ESP32-S2 (QtPy) this procedure is simpler.
