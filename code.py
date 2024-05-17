@@ -24,7 +24,7 @@ import socketpool
 import supervisor
 import wifi
 
-from confchecks import check_string, check_int, check_list, check_bytes
+from confchecks import check_bytes, check_int, check_list, check_string
 from logutil import get_log_level
 from mqtt import mqtt_client_setup
 from mqtt_handler import MQTTHandler
