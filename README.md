@@ -76,8 +76,8 @@ Purpose | Name                                                                  
 `allowed_topics` | MQTT topics to publish messages to                                                                                                                 | `list` of `str` | Mandatory
 `log_topic` | MQTT topic to publish log messages to                                                                                                             | `str` | Optional
 `log_level` | log level, default `INFO`                                                                                                                         | `str` | Mandatory
-`tx_power` | TX power to use if RFM69                                                                                                                          | `int` | Optional
-`encryption_key` | 16 bytes of encryption key if RFM69                                                                                                               | `bytes` | Optional
+`tx_power` | TX power to use for RFM69                                                                                                                          | `int` | Optional
+`encryption_key` | 16 bytes of encryption key for RFM69                                                                                                               | `bytes` | Optional
 
 ## Lessons learned
 
