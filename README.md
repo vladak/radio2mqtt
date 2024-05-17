@@ -31,7 +31,7 @@ f.write('CIRCUITPY_WIFI_PASSWORD = "wifipassword"\n')
 f.write('CIRCUITPY_WEB_API_PASSWORD = "XXX"\n')
 f.close()
 ```
-and restart the microcontroller. **This should not be done for the microcontroller using the radio transmission** to keep things simple and avoid any WiFi induced problems.
+and restart the microcontroller.
 
 Then the following can be used:
 - copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
