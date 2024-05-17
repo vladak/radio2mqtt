@@ -46,7 +46,7 @@ Then the following can be used:
 
 ## Configuration
 
-There needs to be a `secrets.py` file that contains Wi-Fi credentials and information about the MQTT broker.
+There needs to be a `secrets.py` file that contains Wi-Fi credentials and MQTT configuration.
 It can look like this:
 ```python
 # This file is where you keep secret settings, passwords, and tokens!
