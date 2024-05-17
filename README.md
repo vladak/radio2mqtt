@@ -36,7 +36,7 @@ and restart the microcontroller. **This should not be done for the microcontroll
 Then the following can be used:
 - copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
   ```
-  for f in *.py; do curl -v -u :XXX -T $f -L --location-trusted http://172.40.0.11/fs/$f; done
+  for f in *.py; do curl -v -u :XXX -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
   ```
 - create `secrets.py` in the root directory (using the same technique as in the previous step)
 - install necessary libraries from Adafruit CircuitPython bundle to the `lib` directory using web workflow:
