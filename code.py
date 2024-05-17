@@ -7,7 +7,6 @@ Assumes Adafruit Feather ESP32 V2 and certain wiring of 433 MHz Radio FeatherWin
 
 import json
 import struct
-import sys
 import time
 import traceback
 
@@ -28,6 +27,7 @@ import wifi
 from logutil import get_log_level
 from mqtt import mqtt_client_setup
 from mqtt_handler import MQTTHandler
+from confchecks import check_string, check_int, check_list, check_bytes
 
 try:
     from secrets import secrets
@@ -58,69 +58,6 @@ def blink(pixel):
     pixel.brightness = 0
 
 
-def bail(message):
-    """
-    Print message and exit with code 1.
-    """
-    print(message)
-    sys.exit(1)
-
-
-def check_string(name, mandatory=True):
-    """
-    Check is string with given name is present in secrets.
-    """
-    value = secrets.get(name)
-    if value is None and mandatory:
-        bail(f"{name} is missing")
-
-    if value and not isinstance(value, str):
-        bail(f"not a string value for {name}: {value}")
-
-
-def check_int(name, mandatory=True):
-    """
-    Check is integer with given name is present in secrets.
-    """
-    value = secrets.get(name)
-    if value is None and mandatory:
-        bail(f"{name} is missing")
-
-    if value and not isinstance(value, int):
-        bail(f"not a integer value for {name}: {value}")
-
-
-def check_list(name, subtype, mandatory=True):
-    """
-    Check whether list with given name is present in secrets.
-    """
-    value = secrets.get(name)
-    if value is None and mandatory:
-        bail(f"{name} is missing")
-
-    if value and not isinstance(value, list):
-        bail(f"not a integer value for {name}: {value}")
-
-    for item in value:
-        if item and not isinstance(item, subtype):
-            bail(f"not a {subtype}: {item}")
-
-
-def check_bytes(name, length, mandatory=True):
-    """
-    Check is bytes with given name is present in secrets.
-    """
-    value = secrets.get(name)
-    if value is None and mandatory:
-        bail(f"{name} is missing")
-
-    if value and not isinstance(value, bytes):
-        bail(f"not a byte value for {name}: {value}")
-
-    if value and len(value) != length:
-        bail(f"not correct length for {name}: {len(value)} should be {length}")
-
-
 def check_tunables():
     """
     Check that tunables are present and of correct type.
@@ -135,13 +72,11 @@ def check_tunables():
     check_string(PASSWORD)
     check_string(BROKER)
     check_string(LOG_TOPIC, mandatory=False)
-
-    check_int(BROKER_PORT)
-    broker_port = secrets.get(BROKER_PORT)
-    if broker_port < 0 or broker_port > 65535:
-        bail(f"invalid {BROKER_PORT} value: {broker_port}")
+    check_int(BROKER_PORT, min_val=0, max_val=65535)
 
     check_list(ALLOWED_TOPICS, str)
+
+    check_bytes(ENCRYPTION_KEY, 16, mandatory=False)
 
 
 # pylint: disable=too-many-locals,too-many-statements
