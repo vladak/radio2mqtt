@@ -121,7 +121,7 @@ def main():
     # and receiving a single message at a time.
     logger.info("Waiting for packets...")
     while True:
-        mqtt_client.loop(1)
+        mqtt_client.loop(0.1)
 
         packet = rfm69.receive(timeout=0.1)
         if packet is None:
@@ -185,7 +185,7 @@ def get_mqtt_client():
     broker_addr = secrets[BROKER]
     broker_port = secrets[BROKER_PORT]
     mqtt_client = mqtt_client_setup(
-        pool, broker_addr, broker_port, logger.getEffectiveLevel()
+        pool, broker_addr, broker_port, logger.getEffectiveLevel(), socket_timeout=0.1
     )
 
     try:
