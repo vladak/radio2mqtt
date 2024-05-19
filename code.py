@@ -16,6 +16,7 @@ import board
 import busio
 import digitalio
 import microcontroller
+import neopixel
 
 # pylint: disable=import-error
 import socketpool
@@ -24,6 +25,7 @@ import socketpool
 import supervisor
 import wifi
 
+from binarystate import BinaryState
 from confchecks import check_bytes, check_int, check_list, check_string
 from logutil import get_log_level
 from mqtt import mqtt_client_setup
@@ -79,7 +81,7 @@ def check_tunables():
     check_bytes(ENCRYPTION_KEY, 16, mandatory=False)
 
 
-# pylint: disable=too-many-locals,too-many-statements
+# pylint: disable=too-many-locals,too-many-statements,too-many-branches
 def main():
     """
     main loop: collect messages via radio, decode and publish to MQTT
@@ -115,6 +117,16 @@ def main():
     logger.info(f"Bit rate: {rfm69.bitrate / 1000}kbit/s")
     logger.info(f"Frequency deviation: {rfm69.frequency_deviation}hz")
 
+    # The Neopixel will blink only then logging level is set to DEBUG however initialize it anyway.
+    pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
+    pixel.brightness = 0
+    pixel_state = BinaryState()
+    pixel_state.update("off")
+
+    # Assumes tight loop below. If there is high frequency of packets
+    # (i.e. more frequent than this delay), the blinking will degrade into solid light.
+    pixel_blink_delay = 300  # in milliseconds
+
     # Wait to receive packets.  Note that this library can't receive data at a fast
     # rate, in fact it can only receive and process one 60 byte packet at a time.
     # This means you should only use this for low bandwidth scenarios, like sending
@@ -125,9 +137,28 @@ def main():
 
         packet = rfm69.receive(timeout=0.1)
         if packet is None:
+            if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
+                if pixel_state.cur_state == "on":
+                    # Finish the blink if the Neopixel is on.
+                    on_ms = pixel_state.update("on")
+                    logger.debug(f"Pixel has been on for {on_ms} ms")
+                    if on_ms > pixel_blink_delay:
+                        pixel.brightness = 0
+                        pixel_state.update("off")
+
             continue
 
         logger.debug(f"Received ({len(packet)} bytes): {packet}")
+
+        if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
+            on_ms = pixel_state.update("on")
+            logger.debug(f"Pixel has been on for {on_ms} ms")
+            if on_ms < pixel_blink_delay:
+                pixel.brightness = 1
+                pixel.fill((0, 0, 255))
+            else:
+                pixel.brightness = 0
+                pixel_state.update("off")
 
         mqtt_prefix = "MQTT:"
         max_mqtt_topic_len = 36

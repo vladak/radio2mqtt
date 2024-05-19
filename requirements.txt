@@ -2,3 +2,4 @@ adafruit-blinka
 adafruit-circuitpython-minimqtt
 adafruit-circuitpython-logging
 adafruit-circuitpython-rfm69
+adafruit-circuitpython-neopixel
