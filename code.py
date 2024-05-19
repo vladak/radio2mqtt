@@ -123,7 +123,7 @@ def main():
     pixel_state = BinaryState()
     pixel_state.update("off")
 
-    # Assumes tight loop below. If there is high frequency of packets
+    # Assumes tight loop below. The value is approximate. If there is high frequency of packets
     # (i.e. more frequent than this delay), the blinking will degrade into solid light.
     pixel_blink_delay = 300  # in milliseconds
 
