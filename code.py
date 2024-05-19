@@ -141,8 +141,9 @@ def main():
                 if pixel_state.cur_state == "on":
                     # Finish the blink if the Neopixel is on.
                     on_ms = pixel_state.update("on")
-                    logger.debug(f"Pixel has been on for {on_ms} ms")
+                    logger.debug(f"neopixel has been on for {on_ms} ms")
                     if on_ms > pixel_blink_delay:
+                        logger.debug("turning the neopixel off")
                         pixel.brightness = 0
                         pixel_state.update("off")
 
@@ -152,11 +153,13 @@ def main():
 
         if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
             on_ms = pixel_state.update("on")
-            logger.debug(f"Pixel has been on for {on_ms} ms")
+            logger.debug(f"neopixel has been on for {on_ms} ms")
             if on_ms < pixel_blink_delay:
+                logger.debug("turning the neopixel on")
                 pixel.brightness = 1
                 pixel.fill((0, 0, 255))
             else:
+                logger.debug("turning the neopixel off")
                 pixel.brightness = 0
                 pixel_state.update("off")
 
