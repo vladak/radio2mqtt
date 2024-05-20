@@ -8,6 +8,7 @@ class Hexdump:
     """
     simple hexdumping class - no squeezing, no address column
     """
+
     def __init__(self, buf):
         self.buf = buf
 
