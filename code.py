@@ -27,6 +27,7 @@ import wifi
 
 from binarystate import BinaryState
 from confchecks import check_bytes, check_int, check_list, check_string
+from hexdump import Hexdump
 from logutil import get_log_level
 from mqtt import mqtt_client_setup
 from mqtt_handler import MQTTHandler
@@ -149,7 +150,7 @@ def main():
 
             continue
 
-        logger.debug(f"Received ({len(packet)} bytes): {packet}")
+        logger.debug(f"Received packet of {len(packet)} bytes:\n{Hexdump(packet)}")
 
         if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
             on_ms = pixel_state.update("on")
