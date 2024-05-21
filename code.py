@@ -88,7 +88,7 @@ def check_tunables():
     check_bytes(ENCRYPTION_KEY, 16, mandatory=False)
 
 
-# pylint: disable=too-many-locals,too-many-statements,too-many-branches
+# pylint: disable=too-many-locals,too-many-statements
 def main():
     """
     main loop: collect messages via radio, decode and publish to MQTT
