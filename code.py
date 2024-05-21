@@ -51,6 +51,12 @@ ENCRYPTION_KEY = "encryption_key"
 ALLOWED_TOPICS = "allowed_topics"
 
 
+class PacketDecodingError(Exception):
+    """
+    Exception raised when a packet cannot be decoded.
+    """
+
+
 def blink(pixel):
     """
     Blink the Neo pixel blue.
@@ -164,36 +170,11 @@ def main():
                 pixel.brightness = 0
                 pixel_state.update("off")
 
-        mqtt_prefix = "MQTT:"
-        max_mqtt_topic_len = 36
-        fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIf"
-        if struct.calcsize(fmt) > 60:
-            logger.warning("the format for structure packing is bigger than 60 bytes")
-        data = struct.unpack(fmt, packet)
-        if len(data) != 6:
-            logger.warning(f"invalid data: {data}")
+        try:
+            mqtt_topic, pub_data_dict = decode_packet(packet)
+        except PacketDecodingError as packet_exc:
+            logger.warning(str(packet_exc))
             continue
-        prefix = data[0].decode("ascii")
-        if prefix != mqtt_prefix:
-            logger.warning(f"not a MQTT prefix: {prefix}")
-            continue
-
-        mqtt_topic = data[1].decode("ascii")
-        nul_idx = mqtt_topic.find("\x00")
-        if nul_idx > 0:
-            mqtt_topic = mqtt_topic[:nul_idx]
-        logger.debug(f"MQTT topic: {mqtt_topic}")
-        if mqtt_topic not in secrets.get(ALLOWED_TOPICS):
-            logger.warning(f"not allowed topic: '{mqtt_topic}'")
-            continue
-
-        data = data[2:]
-        pub_data_dict = {
-            "humidity": data[0],
-            "temperature": data[1],
-            "co2_ppm": data[2],
-            "battery_level": data[3],
-        }
         try:
             pub_data = json.dumps(pub_data_dict)
         except TypeError:
@@ -202,6 +183,43 @@ def main():
 
         logger.info(f"Publishing to {mqtt_topic}: {pub_data}")
         mqtt_client.publish(mqtt_topic, pub_data)
+
+
+def decode_packet(packet):
+    """
+    Decode packet, return MQTT topic and dictionary of items.
+    Raises PacketDecodingError on error.
+    """
+    logger = logging.getLogger("")
+
+    mqtt_prefix = "MQTT:"
+    max_mqtt_topic_len = 36
+    fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIf"
+    if struct.calcsize(fmt) > 60:
+        logger.warning("the format for structure packing is bigger than 60 bytes")
+    data = struct.unpack(fmt, packet)
+    if len(data) != 6:
+        raise PacketDecodingError(f"invalid data: {data}")
+    prefix = data[0].decode("ascii")
+    if prefix != mqtt_prefix:
+        raise PacketDecodingError(f"not a MQTT prefix: {prefix}")
+
+    mqtt_topic = data[1].decode("ascii")
+    nul_idx = mqtt_topic.find("\x00")
+    if nul_idx > 0:
+        mqtt_topic = mqtt_topic[:nul_idx]
+    logger.debug(f"MQTT topic: {mqtt_topic}")
+    if mqtt_topic not in secrets.get(ALLOWED_TOPICS):
+        raise PacketDecodingError(f"not allowed topic: '{mqtt_topic}'")
+
+    data = data[2:]
+    pub_data_dict = {
+        "humidity": data[0],
+        "temperature": data[1],
+        "co2_ppm": data[2],
+        "battery_level": data[3],
+    }
+    return mqtt_topic, pub_data_dict
 
 
 def get_mqtt_client():
