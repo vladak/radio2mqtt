@@ -10,6 +10,7 @@ import struct
 import time
 import traceback
 
+import adafruit_connection_manager
 import adafruit_logging as logging
 import adafruit_rfm69
 import board
@@ -17,6 +18,11 @@ import busio
 import digitalio
 import microcontroller
 import neopixel
+
+try:
+    from adafruit_wiznet5k.adafruit_wiznet5k import WIZNET5K
+except:  # pylint: disable=bare-except
+    pass
 
 # pylint: disable=import-error
 import socketpool
@@ -228,19 +234,44 @@ def decode_packet(packet):
     return mqtt_topic, pub_data_dict
 
 
-def get_mqtt_client():
+def get_socket_pool():
     """
-    Connect to Wi-Fi and initialize MQTT client
+    Try Ethernet first. If that fails, fall back to WiFi.
     """
     logger = logging.getLogger("")
 
-    logger.info("Connecting to wifi")
-    wifi.radio.connect(secrets[SSID], secrets[PASSWORD], timeout=10)
-    logger.info(f"Connected to {secrets['ssid']}")
-    logger.debug(f"IP: {wifi.radio.ipv4_address}")
+    try:
+        logger.info("Connecting to Ethernet")
+        logger.debug(f"Link status: {WIZNET5K.link_status}")
+        logger.debug(f"MAC Address: {WIZNET5K.pretty_mac(WIZNET5K.mac_address)}")
+        # For Adafruit Ethernet FeatherWing
+        cs = digitalio.DigitalInOut(board.D10)
+        spi_bus = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 
-    pool = socketpool.SocketPool(wifi.radio)  # pylint: disable=no-member
+        # Initialize Ethernet interface with DHCP.
+        eth = WIZNET5K(spi_bus, cs)
+        logger.info(f"My IP address is: {eth.pretty_ip(eth.ip_address)}")
 
+        pool = adafruit_connection_manager.get_radio_socketpool(eth)
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        logger.info(f"Failed to initialize Ethernet: {e}")
+        logger.info("Connecting to wifi")
+        wifi.radio.connect(secrets[SSID], secrets[PASSWORD], timeout=10)
+        logger.info(f"Connected to {secrets['ssid']}")
+        logger.debug(f"IP: {wifi.radio.ipv4_address}")
+
+        pool = socketpool.SocketPool(wifi.radio)  # pylint: disable=no-member
+
+    return pool
+
+
+def get_mqtt_client():
+    """
+    Connect to network and initialize MQTT client.
+    """
+    logger = logging.getLogger("")
+
+    pool = get_socket_pool()
     broker_addr = secrets[BROKER]
     broker_port = secrets[BROKER_PORT]
     mqtt_client = mqtt_client_setup(
