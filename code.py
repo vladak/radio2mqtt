@@ -121,7 +121,7 @@ def main():
         logger.debug("Setting encryption key")
         rfm69.encryption_key = encryption_key
 
-    mqtt_client = get_mqtt_client()
+    mqtt_client = get_mqtt_client(spi)
 
     logger.debug(f"allowed topics: {secrets.get(ALLOWED_TOPICS)}")
 
@@ -234,7 +234,7 @@ def decode_packet(packet):
     return mqtt_topic, pub_data_dict
 
 
-def get_socket_pool():
+def get_socket_pool(spi_bus):
     """
     Try Ethernet first. If that fails, fall back to WiFi.
     """
@@ -242,11 +242,13 @@ def get_socket_pool():
 
     try:
         logger.info("Connecting to Ethernet")
-        logger.debug(f"Link status: {WIZNET5K.link_status}")
-        logger.debug(f"MAC Address: {WIZNET5K.pretty_mac(WIZNET5K.mac_address)}")
+
+        # TODO: these cannot be printed for some reason
+        #logger.debug(f"Link status: {WIZNET5K.link_status}")
+        #logger.debug(f"MAC Address: {WIZNET5K.pretty_mac(WIZNET5K.mac_address)}")
+
         # For Adafruit Ethernet FeatherWing
-        cs = digitalio.DigitalInOut(board.D10)
-        spi_bus = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        cs = digitalio.DigitalInOut(board.D33)
 
         # Initialize Ethernet interface with DHCP.
         eth = WIZNET5K(spi_bus, cs)
@@ -265,13 +267,13 @@ def get_socket_pool():
     return pool
 
 
-def get_mqtt_client():
+def get_mqtt_client(spi_bus):
     """
     Connect to network and initialize MQTT client.
     """
     logger = logging.getLogger("")
 
-    pool = get_socket_pool()
+    pool = get_socket_pool(spi_bus)
     broker_addr = secrets[BROKER]
     broker_port = secrets[BROKER_PORT]
     mqtt_client = mqtt_client_setup(
