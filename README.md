@@ -97,7 +97,7 @@ Purpose | Name                                                                  
 
 - Using web workflow makes it easy for unattended upgrades or code changes
 - The 433 MHz signal using 16.5 cm wire antenna can easily reach across the apartment, i.e. through brick/concrete walls and windows.
-  - That said, it seems that the level of the placement matters. For example, when I put the sending side on the floor, the receiver (placed on top of a tall library) was not able to receive anything however when positioned a bit higher, the receiver picked up the signal no problem. 
+  - That said, it seems that the level of the placement matters. For example, when I put the sending side on the floor, the receiver (placed on top of a tall library, some 2 meters above the floor level) was not able to receive anything however when positioned a bit higher (1 meter above floor level), the receiver picked up the signal no problem. 
 
 ## Guide/documentation links
 
