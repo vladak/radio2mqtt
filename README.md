@@ -71,7 +71,7 @@ secrets = {
     "broker": "172.40.0.3",
     "broker_port": 1883,
     "allowed_topics": ["devices/terasa/shield"],
-    "log_topic": "logs/terasa/shield",
+    "log_topic": "logs/terasa/radio2mqtt",
     "log_level": "INFO",
     "encryption_key": b"\x01\x02\x03\x04\x05\x06\x07\x08\x01\x02\x03\x04\x05\x06\x07\x08",
 }
