@@ -203,7 +203,10 @@ def decode_packet(packet):
     fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIf"
     if struct.calcsize(fmt) > 60:
         logger.warning("the format for structure packing is bigger than 60 bytes")
-    data = struct.unpack(fmt, packet)
+    try:
+        data = struct.unpack(fmt, packet)
+    except RuntimeError as e:
+        raise PacketDecodingError("failed to unpack data") from e
     if len(data) != 6:
         raise PacketDecodingError(f"invalid data: {data}")
     prefix = data[0].decode("ascii")
