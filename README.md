@@ -39,9 +39,9 @@ Once CicuitPython is installed, perform the initial set up by [creating the `set
 ) in the root directory (using `screen` when the board is connected via USB data cable):
 ```
 f = open('settings.toml', 'w')
-f.write('CIRCUITPY_WIFI_SSID = "wifissid"\n')
-f.write('CIRCUITPY_WIFI_PASSWORD = "wifipassword"\n')
-f.write('CIRCUITPY_WEB_API_PASSWORD = "XXX"\n')
+f.write('CIRCUITPY_WIFI_SSID = "MY_SSID"\n')
+f.write('CIRCUITPY_WIFI_PASSWORD = "CHANGE_ME"\n')
+f.write('CIRCUITPY_WEB_API_PASSWORD = "CHANGE_ME"\n')
 f.close()
 ```
 and restart the microcontroller.
