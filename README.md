@@ -40,8 +40,8 @@ Once CicuitPython is installed, perform the initial set up by [creating the `set
 ```
 f = open('settings.toml', 'w')
 f.write('CIRCUITPY_WIFI_SSID = "MY_SSID"\n')
-f.write('CIRCUITPY_WIFI_PASSWORD = "CHANGE_ME"\n')
-f.write('CIRCUITPY_WEB_API_PASSWORD = "CHANGE_ME"\n')
+f.write('CIRCUITPY_WIFI_PASSWORD = "CHANGE_ME_WIFI"\n')
+f.write('CIRCUITPY_WEB_API_PASSWORD = "CHANGE_ME_WAP_API"\n')
 f.close()
 ```
 and restart the microcontroller.
@@ -49,12 +49,12 @@ and restart the microcontroller.
 Then the following can be used:
 - copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
   ```
-  for f in *.py; do curl -v -u :XXX -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
+  for f in *.py; do curl -v -u :CHANGE_ME_WAP_API -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
   ```
 - create `secrets.py` in the root directory (using the same technique as in the previous step)
 - install necessary libraries from Adafruit CircuitPython bundle to the `lib` directory using web workflow:
   ```
-  circup --host 172.40.0.11 --password XXX install -r requirements.txt
+  circup --host 172.40.0.11 --password CHANGE_ME_WAP_API install -r requirements.txt
   ```
 
 ## Configuration
