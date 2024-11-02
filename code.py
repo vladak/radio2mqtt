@@ -250,8 +250,8 @@ def get_socket_pool(spi_bus):
         #logger.debug(f"Link status: {WIZNET5K.link_status}")
         #logger.debug(f"MAC Address: {WIZNET5K.pretty_mac(WIZNET5K.mac_address)}")
 
-        # For Adafruit Ethernet FeatherWing
-        cs = digitalio.DigitalInOut(board.D33)
+        # for Adafruit Ethernet FeatherWing with Feather ESP32-S3
+        cs = digitalio.DigitalInOut(board.D10)
 
         # Initialize Ethernet interface with DHCP.
         eth = WIZNET5K(spi_bus, cs)
