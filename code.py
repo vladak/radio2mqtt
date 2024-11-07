@@ -246,10 +246,6 @@ def get_socket_pool(spi_bus):
     try:
         logger.info("Connecting to Ethernet")
 
-        # TODO: these cannot be printed for some reason
-        #logger.debug(f"Link status: {WIZNET5K.link_status}")
-        #logger.debug(f"MAC Address: {WIZNET5K.pretty_mac(WIZNET5K.mac_address)}")
-
         # for Adafruit Ethernet FeatherWing with Feather ESP32-S3
         cs = digitalio.DigitalInOut(board.D10)
 
