@@ -199,15 +199,15 @@ def decode_packet(packet):
     logger = logging.getLogger("")
 
     mqtt_prefix = "MQTT:"
-    max_mqtt_topic_len = 36
-    fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIf"
+    max_mqtt_topic_len = 32
+    fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIfI"
     if struct.calcsize(fmt) > 60:
         logger.warning("the format for structure packing is bigger than 60 bytes")
     try:
         data = struct.unpack(fmt, packet)
     except RuntimeError as e:
         raise PacketDecodingError("failed to unpack data") from e
-    if len(data) != 6:
+    if len(data) != 7:
         raise PacketDecodingError(f"invalid data: {data}")
     prefix = data[0].decode("ascii")
     if prefix != mqtt_prefix:
@@ -227,6 +227,7 @@ def decode_packet(packet):
         "temperature": data[1],
         "co2_ppm": data[2],
         "battery_level": data[3],
+        "lux": data[4],
     }
     return mqtt_topic, pub_data_dict
 
