@@ -200,7 +200,7 @@ def decode_packet(packet):
 
     mqtt_prefix = "MQTT:"
     max_mqtt_topic_len = 32
-    fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIfI"
+    fmt = f">{len(mqtt_prefix)}s{max_mqtt_topic_len}sffIff"
     if struct.calcsize(fmt) > 60:
         logger.warning("the format for structure packing is bigger than 60 bytes")
     try:
