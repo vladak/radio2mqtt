@@ -103,8 +103,8 @@ def main():
     logger.info("Running")
 
     # Assumes certain wiring of the Radio FeatherWing.
-    cs = digitalio.DigitalInOut(board.D14)
-    reset = digitalio.DigitalInOut(board.D32)
+    cs = digitalio.DigitalInOut(board.D5)
+    reset = digitalio.DigitalInOut(board.D6)
 
     spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
 
