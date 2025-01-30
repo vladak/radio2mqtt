@@ -209,7 +209,10 @@ def decode_packet(packet):
         raise PacketDecodingError("failed to unpack data") from e
     if len(data) != 7:
         raise PacketDecodingError(f"invalid data: {data}")
-    prefix = data[0].decode("ascii")
+    try:
+        prefix = data[0].decode("ascii")
+    except UnicodeError:
+        raise PacketDecodingError(f"failed to decode data: {data}")
     if prefix != mqtt_prefix:
         raise PacketDecodingError(f"not a MQTT prefix: {prefix}")
 
