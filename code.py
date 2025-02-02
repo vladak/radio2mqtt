@@ -160,7 +160,7 @@ def main():
         # This is updated when packets are received and returns a value in decibels
         # (typically negative, so the smaller the number and closer to 0,
         # the higher the strength / better the signal).
-        logger.debug(f"RSSI: {rfm69.rssi}")
+        logger.debug(f"RSSI: {rfm69.last_rssi}")
 
         logger.debug(f"Received packet of {len(packet)} bytes:\n{Hexdump(packet)}")
 
