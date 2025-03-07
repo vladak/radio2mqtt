@@ -211,8 +211,8 @@ def decode_packet(packet):
         raise PacketDecodingError(f"invalid data: {data}")
     try:
         prefix = data[0].decode("ascii")
-    except UnicodeError:
-        raise PacketDecodingError(f"failed to decode data: {data}")
+    except UnicodeError as unicode_exc:
+        raise PacketDecodingError(f"failed to decode data: {data}") from unicode_exc
     if prefix != mqtt_prefix:
         raise PacketDecodingError(f"not a MQTT prefix: {prefix}")
 
