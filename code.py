@@ -25,6 +25,10 @@ import socketpool
 import supervisor
 import wifi
 
+# pylint: disable=no-name-in-module
+from microcontroller import watchdog
+from watchdog import WatchDogMode, WatchDogTimeout
+
 from binarystate import BinaryState
 from confchecks import check_bytes, check_int, check_list, check_string
 from hexdump import Hexdump
@@ -100,6 +104,11 @@ def main():
     logger = logging.getLogger("")
     logger.setLevel(log_level)
 
+    # The initialization code below should not take long and the endless loop is quite tight,
+    # so 5 seconds should be more than enough.
+    watchdog.timeout = 5
+    watchdog.mode = WatchDogMode.RAISE
+
     logger.info("Running")
 
     # Assumes certain wiring of the Radio FeatherWing.
@@ -140,6 +149,8 @@ def main():
     # and receiving a single message at a time.
     logger.info("Waiting for packets...")
     while True:
+        watchdog.feed()
+
         mqtt_client.loop(0.1)
 
         packet = rfm69.receive(timeout=0.1)
@@ -275,6 +286,7 @@ def hard_reset(exception):
     """
     Sometimes soft reset is not enough. Perform hard reset.
     """
+    watchdog.mode = None
     print(f"Got exception: {exception}")
     reset_time = 15
     print(f"Performing hard reset in {reset_time} seconds")
@@ -299,9 +311,12 @@ except Exception as e:  # pylint: disable=broad-except
     # This assumes that such exceptions are quite rare.
     # Otherwise, this would drain the battery quickly by restarting
     # over and over in a quick succession.
+    watchdog.mode = None
     print("Code stopped by unhandled exception:")
     print(traceback.format_exception(None, e, e.__traceback__))
     RELOAD_TIME = 10
     print(f"Performing a supervisor reload in {RELOAD_TIME} seconds")
     time.sleep(RELOAD_TIME)
     supervisor.reload()
+except WatchDogTimeout as e:
+    hard_reset(e)
