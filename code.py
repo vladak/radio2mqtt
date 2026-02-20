@@ -6,6 +6,7 @@ Assumes Adafruit Feather ESP32 V2 and certain wiring of 433 MHz Radio FeatherWin
 """
 
 import json
+import math
 import struct
 import time
 import traceback
@@ -236,13 +237,19 @@ def decode_packet(packet):
         raise PacketDecodingError(f"not allowed topic: '{mqtt_topic}'")
 
     data = data[2:]
-    pub_data_dict = {
-        "humidity": data[0],
-        "temperature": data[1],
-        "co2_ppm": data[2],
-        "battery_level": data[3],
-        "lux": data[4],
-    }
+
+    pub_data_dict = {}
+    if not math.isnan(data[0]):
+        pub_data_dict["humidity"] = data[0]
+    if not math.isnan(data[1]):
+        pub_data_dict["temperature"] = data[1]
+    if data[2] != 0:
+        pub_data_dict["co2_ppm"] = data[2]
+    if not math.isnan(data[3]):
+        pub_data_dict["battery_level"] = data[3]
+    if not math.isnan(data[4]):
+        pub_data_dict["lux"] = data[4]
+
     return mqtt_topic, pub_data_dict
 
 
