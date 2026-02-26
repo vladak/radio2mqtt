@@ -2,10 +2,10 @@
 
 # Radio (RFM69) to MQTT gateway
 
-Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using WiFi.
+Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using Wi-Fi.
 The code assumes Feather ESP32 V2 and certain wiring of the Radio FeatherWing.
 
-This is the server piece for [shield](https://github.com/vladak/shield/).
+This is the receiver piece for [shield](https://github.com/vladak/shield/).
 
 ## Hardware
 
@@ -23,7 +23,7 @@ Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
 To attach the FeatherWing to the Feather, I used the [colored headers](https://www.adafruit.com/product/4160). These are not visible when the FeatherWing is attached and the assembly is in an enclosure however they add a tiny bit of fun to the project.
 
-I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit. It fits the WiFi antenna snuggly (the cutout could probably fit even the dipole swivel antenna together with the wire antenna) and barely fits the Radio FeatherWing - it would be nice if it was a bit higher. Also as the remix author notes, the lid is a bit too loose, so for these reasons I had to use a tape to secure the lid to the bottom box.
+I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit. It fits the Wi-Fi antenna snuggly (the cutout could probably fit even the dipole swivel antenna together with the wire antenna) and barely fits the Radio FeatherWing - it would be nice if it was a bit higher. Also as the remix author notes, the lid is a bit too loose, so for these reasons I had to use a tape to secure the lid to the bottom box.
 
 <img src="img/case_open.jpg" alt="drawing" width="400"/>
 
