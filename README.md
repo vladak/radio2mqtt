@@ -3,7 +3,7 @@
 # Radio (RFM69) to MQTT gateway
 
 Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using Wi-Fi.
-The code assumes Feather ESP32 V2 and certain wiring of the Radio FeatherWing.
+The code assumes ESP32 based Feather and certain wiring of the Radio FeatherWing.
 
 This is the receiver piece for [shield](https://github.com/vladak/shield/).
 
@@ -13,8 +13,7 @@ Here is a bill of materials:
 
 Purpose | Name
 ---|---
-microcontroller | [ESP32 Feather V2 with w.FL antenna connector](https://www.adafruit.com/product/5438)
-WiFi antenna | [WiFi Antenna with w.FL / MHF3 / IPEX3 Connector](https://www.adafruit.com/product/5445)
+microcontroller | ESP32 Feather S3
 radio antenna | high power antenna 4dBi 433MHz (410~450 MHz) 20cm/90°foldable/SMA-J (ordered from eBay)
 radio | [Radio FeatherWing 433 MHz](https://www.adafruit.com/product/3230) 
 
@@ -22,9 +21,11 @@ Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
 ## Physical packaging
 
+### Original
+
 To attach the FeatherWing to the Feather, I used the [colored headers](https://www.adafruit.com/product/4160). These are not visible when the FeatherWing is attached and the assembly is in an enclosure however they add a tiny bit of fun to the project.
 
-I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit. It fits the Wi-Fi antenna snuggly (the cutout could probably fit even the dipole swivel antenna together with the wire antenna) and barely fits the Radio FeatherWing - it would be nice if it was a bit higher. Also as the remix author notes, the lid is a bit too loose, so for these reasons I had to use a tape to secure the lid to the bottom box.
+Originally I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit. It fits the Wi-Fi antenna snuggly (the cutout could probably fit even the dipole swivel antenna together with the wire antenna) and barely fits the Radio FeatherWing - it would be nice if it was a bit higher. Also as the remix author notes, the lid is a bit too loose, so for these reasons I had to use a tape to secure the lid to the bottom box.
 
 <img src="img/case_open.jpg" alt="drawing" width="400"/>
 
@@ -46,7 +47,7 @@ f.close()
 and restart the microcontroller.
 
 Then the following can be used:
-- copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
+- for ESP32 V2, copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
   ```
   for f in *.py; do curl -v -u :CHANGE_ME_WEB_API_PASSWORD -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
   ```
