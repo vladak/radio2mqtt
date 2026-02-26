@@ -16,6 +16,7 @@ Purpose | Name
 microcontroller | ESP32 Feather S3
 radio antenna | high power antenna 4dBi 433MHz (410~450 MHz) 20cm/90°foldable/SMA-J (ordered from eBay)
 radio | [Radio FeatherWing 433 MHz](https://www.adafruit.com/product/3230) 
+interconnect | [FeatherWing doubler](https://www.adafruit.com/product/2890)
 
 Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
