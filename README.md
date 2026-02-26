@@ -3,7 +3,7 @@
 # Radio (RFM69) to MQTT gateway
 
 Receive messages in certain format over RFM69 based radio, decode them and publish as MQTT messages using Wi-Fi.
-The code assumes ESP32 based Feather and certain wiring of the Radio FeatherWing.
+The code assumes ESP32 based Feather running CircuitPython and certain wiring of the Radio FeatherWing.
 
 This is the receiver piece for [shield](https://github.com/vladak/shield/).
 
