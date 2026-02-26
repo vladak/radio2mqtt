@@ -52,9 +52,14 @@ Then the following can be used:
   for f in *.py; do curl -v -u :CHANGE_ME_WEB_API_PASSWORD -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
   ```
 - create `secrets.py` in the root directory (using the same technique as in the previous step)
-- install necessary libraries from Adafruit CircuitPython bundle to the `lib` directory using web workflow:
+- install necessary libraries from Adafruit CircuitPython bundle to the `lib` directory:
+  - For Feather ESP32 V2, web based workflow has to be used:
   ```
   circup --host 172.40.0.11 --password CHANGE_ME_WEB_API_PASSWORD install -r requirements.txt
+  ```
+  - for ESP32-S2/ESP32-S3 and similar with USB mass storage access:
+  ```
+  circup install -r requirements.txt
   ```
 
 ## Configuration
