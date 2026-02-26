@@ -36,7 +36,7 @@ Originally I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919
 
 Firstly, the microcontroller needs to be converted to run CircuitPython 9.x (for the `circup` to work with web workflow). To do that, for ESP32 V2, I chose the [command line `esptool`](https://learn.adafruit.com/circuitpython-with-esp32-quick-start/command-line-esptool) on a Linux computer (since macOS appeared to have flaky serial connection for some reason), however these days it can be done using [Web Flasher](https://adafruit.github.io/Adafruit_WebSerial_ESPTool/) in Chrome.
 
-Once CicuitPython is installed, perform the initial set up by [creating the `settings.toml` file](https://learn.adafruit.com/circuitpython-with-esp32-quick-start/setting-up-web-workflow
+Once CicuitPython is installed, only if ESP32 V2 used, perform the initial set up by [creating the `settings.toml` file](https://learn.adafruit.com/circuitpython-with-esp32-quick-start/setting-up-web-workflow
 ) in the root directory (using `screen` when the board is connected via USB data cable):
 ```
 f = open('settings.toml', 'w')
@@ -48,7 +48,12 @@ f.close()
 and restart the microcontroller.
 
 Then the following can be used:
-- for ESP32 V2, copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
+- install the code
+  - for ESP32S3 connected via USB, assumes Linux:
+  ```
+  cp *.py /media/$LOGNAME/CIRCUITPY/
+  ``` 
+  - for ESP32 V2, copy `*.py` files to the root directory using web workflow, assumes system with `curl` installed:
   ```
   for f in *.py; do curl -v -u :CHANGE_ME_WEB_API_PASSWORD -T "$f" -L --location-trusted "http://172.40.0.11/fs/$f"; done
   ```
