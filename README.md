@@ -15,6 +15,7 @@ Purpose | Name
 ---|---
 microcontroller | [ESP32 Feather V2 with w.FL antenna connector](https://www.adafruit.com/product/5438)
 WiFi antenna | [WiFi Antenna with w.FL / MHF3 / IPEX3 Connector](https://www.adafruit.com/product/5445)
+radio antenna | high power antenna 4dBi 433MHz (410~450 MHz) 20cm/90°foldable/SMA-J (ordered from eBay)
 radio | [Radio FeatherWing 433 MHz](https://www.adafruit.com/product/3230) 
 
 Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
