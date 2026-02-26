@@ -19,8 +19,6 @@ radio | [Radio FeatherWing 433 MHz](https://www.adafruit.com/product/3230)
 
 Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
-https://www.thingiverse.com/thing:2664919/files is used for the enclosure.
-
 ## Physical packaging
 
 To attach the FeatherWing to the Feather, I used the [colored headers](https://www.adafruit.com/product/4160). These are not visible when the FeatherWing is attached and the assembly is in an enclosure however they add a tiny bit of fun to the project.
