@@ -51,8 +51,8 @@ When printing on MK4S, some of the corners of the middle of the case were a bit 
 
 So, supports seem to be handly also for fixing the print horizontally, not only vertically.
 
-Here's the case printed on Prusa MK4S without brim/supports:
+Here's the case printed on Prusa MK4S without brim/supports, one can see the edge being lifted:
 <img src="case-bent.jpg">
 
-and here printed on Prusa Core One:
+and here printed on Prusa Core One also without brim/supports with visible distortion due to print moving during printing:
 <img src="case-distorted.jpg">
