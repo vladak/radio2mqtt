@@ -43,7 +43,10 @@ Printed on Prusa MK4S, slicing done in PrusaSlicer.
 
 ### Design
 
-TBD
+When changing the original designs, I discovered multiple tricks. Things like negative offsets (for the bottom of the case), parametric design (for the cable/antenna holes), extrusions with holes (for the Doubler mount), sketch constraints using construction lines, and their combination.
+
+Here's how the final design looks in Fusion 360:
+<img src="Doubler case - Fusion.png">
 
 ### Printing
 
