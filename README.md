@@ -22,15 +22,13 @@ Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
 ## Physical packaging
 
-### Original
+Originally I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit.
 
-To attach the FeatherWing to the Feather, I used the [colored headers](https://www.adafruit.com/product/4160). These are not visible when the FeatherWing is attached and the assembly is in an enclosure however they add a tiny bit of fun to the project.
+Then I remixed the QtPy case and created custom enclosure:
 
-Originally I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit. It fits the Wi-Fi antenna snuggly (the cutout could probably fit even the dipole swivel antenna together with the wire antenna) and barely fits the Radio FeatherWing - it would be nice if it was a bit higher. Also as the remix author notes, the lid is a bit too loose, so for these reasons I had to use a tape to secure the lid to the bottom box.
+<img src="img/case-assembly-1.jpg" alt="drawing" width="400"/>
 
-<img src="img/case_open.jpg" alt="drawing" width="400"/>
-
-<img src="img/case_closed.jpg" alt="drawing" width="400"/>
+<img src="img/case_assembly-2.jpg" alt="drawing" width="400"/>
 
 ## Software/firmware install
 
