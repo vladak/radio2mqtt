@@ -24,7 +24,7 @@ Most of the stuff comes from [Adafruit](https://www.adafruit.com/).
 
 Originally I used the ["tracking tag"](https://www.thingiverse.com/thing:2664919) enclosure that is originally designed for Feather M0 and GPS, however I needed something quick and this seems it would fit.
 
-Then I remixed the QtPy case and created [custom enclosure](https://github.com/vladak/radio2mqtt/tree/main/Doubler%20snap%20fit%20case):
+Then I remixed the QtPy case and created [custom enclosure](https://github.com/vladak/radio2mqtt/tree/main/Doubler%20snap%20fit%20case) (here showing a transmitter using the same case with battery and temperature/humidity sensor, the receiver does not generally have these):
 
 <img src="img/case-assembly-1.jpg" alt="drawing" width="400"/>
 
