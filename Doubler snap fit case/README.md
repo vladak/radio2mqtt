@@ -41,6 +41,12 @@ Printed on Prusa MK4S, slicing done in PrusaSlicer.
 
 ## Lessons learned
 
+### Design
+
+TBD
+
+### Printing
+
 ### Tolerances
 
 At first I tried to have some space between the battery clip and the rails on the bottom of the case, concretely 1mm, thinking 0.5 mm on each side would be fine. Turned out the clip was actually loose. Making the inner length to match the distance between rails exactly did the trick however making it 0.5 mm shorter worked even better.
