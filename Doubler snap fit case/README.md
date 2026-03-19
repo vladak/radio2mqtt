@@ -28,7 +28,7 @@ In my case the parameter set was called "0.2 STRUCTURAL".
 
 Took me some 5 iterations of prints to get the dimensions/tolerances/printing right.
 
-Printed on Prusa MK4S, slicing done in PrusaSlicer.
+Printed on Prusa MK4S and Prusa Core One, slicing done in PrusaSlicer.
 
 ## Assembly/mount
 
