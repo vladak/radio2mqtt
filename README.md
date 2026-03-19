@@ -28,7 +28,7 @@ Then I remixed the QtPy case and created custom enclosure:
 
 <img src="img/case-assembly-1.jpg" alt="drawing" width="400"/>
 
-<img src="img/case_assembly-2.jpg" alt="drawing" width="400"/>
+<img src="img/case-assembly-2.jpg" alt="drawing" width="400"/>
 
 ## Software/firmware install
 
