@@ -140,6 +140,9 @@ def main():
     pixel_state = BinaryState()
     pixel_state.update("off")
 
+    packet_state = BinaryState()
+    packet_state.update("none")
+
     # Assumes tight loop below. The value is approximate. If there is high frequency of packets
     # (i.e. more frequent than this delay), the blinking will degrade into solid light.
     pixel_blink_delay = 300  # in milliseconds
@@ -157,6 +160,15 @@ def main():
         packet = rfm69.receive(timeout=0.1)
         if packet is None:
             if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
+                pkt_none_ms = packet_state.update("none")
+                #
+                # Prevent spamming the log/console with information about none
+                # packet received. Once a second is enough.
+                #
+                if pkt_none_ms >= 1000:
+                    logger.debug("nothing so far")
+                    packet_state.reset()
+
                 if pixel_state.cur_state == "on":
                     # Finish the blink if the Neopixel is on.
                     on_ms = pixel_state.update("on")
@@ -174,6 +186,7 @@ def main():
         # the higher the strength / better the signal).
         logger.debug(f"RSSI: {rfm69.last_rssi}")
 
+        packet_state.update("one")
         logger.debug(f"Received packet of {len(packet)} bytes:\n{Hexdump(packet)}")
 
         if logger.getEffectiveLevel() == logging.DEBUG:  # pylint: disable=no-member
