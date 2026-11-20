@@ -131,7 +131,6 @@ def main():
 
     logger.debug(f"allowed topics: {secrets.get(ALLOWED_TOPICS)}")
 
-    logger.info(f"Temperature: {rfm69.temperature}C")
     logger.info(f"Frequency: {rfm69.frequency_mhz}mhz")
     logger.info(f"Bit rate: {rfm69.bitrate / 1000}kbit/s")
     logger.info(f"Frequency deviation: {rfm69.frequency_deviation}hz")
