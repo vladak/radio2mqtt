@@ -117,8 +117,8 @@ def main():
     reset = digitalio.DigitalInOut(board.D6)  # pylint: disable=no-member
 
     spi = busio.SPI(
-        board.SCK, MOSI=board.MOSI, MISO=board.MISO
-    )  # pylint: disable=no-member
+        board.SCK, MOSI=board.MOSI, MISO=board.MISO  # pylint: disable=no-member
+    )
 
     rfm69 = adafruit_rfm69.RFM69(spi, cs, reset, 433)  # Europe
 
