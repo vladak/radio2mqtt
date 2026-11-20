@@ -113,10 +113,10 @@ def main():
     logger.info("Running")
 
     # Assumes certain wiring of the Radio FeatherWing.
-    cs = digitalio.DigitalInOut(board.D5)
-    reset = digitalio.DigitalInOut(board.D6)
+    cs = digitalio.DigitalInOut(board.D5)  # pylint: disable=no-member
+    reset = digitalio.DigitalInOut(board.D6)  # pylint: disable=no-member
 
-    spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+    spi = busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)  # pylint: disable=no-member
 
     rfm69 = adafruit_rfm69.RFM69(spi, cs, reset, 433)  # Europe
 
@@ -135,7 +135,7 @@ def main():
     logger.info(f"Frequency deviation: {rfm69.frequency_deviation}hz")
 
     # The Neopixel will blink only then logging level is set to DEBUG however initialize it anyway.
-    pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)
+    pixel = neopixel.NeoPixel(board.NEOPIXEL, 1)  # pylint: disable=no-member
     pixel.brightness = 0
     pixel_state = BinaryState()
     pixel_state.update("off")
