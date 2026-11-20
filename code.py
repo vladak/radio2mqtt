@@ -167,7 +167,7 @@ def main():
                 # packet received. Once a second is enough.
                 #
                 if pkt_none_ms >= 1000:
-                    logger.debug(f"nothing so far (op mode = {rfm69.operation_mode}")
+                    logger.debug(f"nothing so far (op mode = {rfm69.operation_mode})")
                     packet_state.reset()
 
                 if pixel_state.cur_state == "on":
